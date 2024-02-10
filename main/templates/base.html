@@ -1,0 +1,99 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" />
+    <!-- Bootstrap Icons -->
+    <link href="{% static 'bootstrap-icons/font/bootstrap-icons.css' %}" rel="stylesheet" />
+    <!-- Include jquery -->
+    <script type="text/javascript" src="{% static 'jquery-3.6.0.min.js' %}"></script>
+	<!-- Font Family -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Montserrat:wght@400;700&family=Lato:wght@400;700&family=Roboto:wght@400;700&family=Poppins:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&family=Monoton&family=Black+Han+Sans&family=Archivo+Black&family=Bungee&display=swap">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Home - Arnold GYM</title>
+  </head>
+  <body>
+    <!-- Header -->
+	<nav class="navbar navbar-expand-lg py-4 navbar-light bg-danger">
+		<div class="container">
+		  <a class="navbar-brand" href="{% url 'home' %}" style="font-weight: 666; font-size: 22px; font-family: 'Cinzel Decorative', sans-serif;">THE HUSTLERS GYM</a>
+		  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div>
+		  <img style="width: 130px; margin-left:23%; position: absolute; z-index: 5; top: -8%;" src="{% static 'imgs/logo.png' %}" alt="">
+		  </div>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav ms-auto">
+			  <li class="nav-item">
+				<a class="nav-link" aria-current="page" style="font-weight: 700;" href="{% url 'home' %}">Home</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" aria-current="page" style="font-weight: 700;" href="{% url 'gallery' %}">Gallery</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="{% url 'pricing' %}" style="font-weight: 700;">Pricing</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link btn btn-sm btn-primary active text-white" href="{% url 'enquiry' %}">Enquiry</a>
+			  </li>
+			  <li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="#" style="font-weight: 700;" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+				  My Account
+				</a>
+				<ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+				  {% if not request.user.is_authenticated %}
+					  {% if request.session.trainerlogin %}
+					  <li><a class="dropdown-item text-danger" href="{% url 'trainerlogout' %}">Trainer Logout</a></li>
+					  {% else %}
+					  <li><a class="dropdown-item" href="{% url 'trainerlogin' %}">Trainer Login</a></li>
+					  <li><a class="dropdown-item" href="{% url 'signup' %}">Register</a></li>
+					  <li><a class="dropdown-item" href="{% url 'login' %}">Login</a></li>
+					  {% endif %}
+				  {% else %}
+				  <li><a class="dropdown-item" href="#">Profile</a></li>
+				  <li><a class="dropdown-item" href="{% url 'user_dashboard' %}">Dashboard</a></li>
+				  <li><a class="dropdown-item" href="#">Settings</a></li>
+				  <li><form class="dropdown-item" method="post" action="{% url 'logout' %}">
+					  <button style="border: none; background: none;" class="text-danger" type="submit">Logout</button>
+					  {% csrf_token %}
+				  </form></li>
+				  {% endif %}
+				</ul>
+			  </li>
+			</ul>
+	  </div>
+	</div>
+	</nav>
+    <!-- Header End -->
+
+
+
+
+    
+	  {% block content %}
+
+    {% endblock %}
+
+   <!-- Footer Start -->
+  <footer class="container py-5">
+  <p class="float-end"><a href="#">Back to top</a></p>
+  <p>© 2017–2021 Arnold GYM, Inc. · 
+        <a href="{% url 'pagedetail' 2 %}">Privacy</a> · 
+        <a href="{% url 'pagedetail' 3 %}">Terms</a> . 
+        <a href="{% url 'faq' %}">FAQ</a> .
+        <a href="{% url 'contact_page' %}">Contact Us</a> .
+    </p>
+</footer>
+
+<!-- Bootstrap Bundle -->
+<script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'popper.min.js' %}"></script>
+</body>
+</html>
